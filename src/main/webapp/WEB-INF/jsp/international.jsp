@@ -15,8 +15,11 @@
 </head>
 <body>
 选择语言：
-<a href="http://localhost:8080/spring_i18n/international?language=zh_CN">中文</a>
-<a href="http://localhost:8080/spring_i18n/international?language=en_US">English</a>
+<%--<a href="http://localhost:8080/spring_i18n/international?language=zh_CN">中文</a>--%>
+<%--<a href="http://localhost:8080/spring_i18n/international?language=en_US">English</a>--%>
+
+<a href="http://localhost:8080/spring_i18n/request/international?paramName=zh_CN">中文</a>
+<a href="http://localhost:8080/spring_i18n/request/international?paramName=en_US">English</a>
 <br>
 <spring:message code="name"/>
 </body>

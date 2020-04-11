@@ -6,5 +6,5 @@ package com.ly.spi;
  * @Author 8201
  */
 public interface Zoo {
-
+    void spi();
 }
