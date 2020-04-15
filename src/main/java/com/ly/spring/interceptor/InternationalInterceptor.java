@@ -1,4 +1,4 @@
-package com.ly.java.interceptor;
+package com.ly.spring.interceptor;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.LocaleResolver;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @Description 自定义拦截器
+ * @Description 自定义拦截器,通过请求参数设置Locale
  * @Date 2020/4/8 15:51
  * @Author 8201
  */

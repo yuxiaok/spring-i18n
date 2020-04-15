@@ -1,2 +1,4 @@
 /target/
 /.idea/
+!/.idea/
+!/spring-i18n.iml

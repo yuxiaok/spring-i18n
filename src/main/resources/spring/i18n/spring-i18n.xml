@@ -3,12 +3,37 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--当前会话默认的环境-->
+    <!--自动解析Locale的几种方式-->
+    <!--此解析器检查客户端可能存在Cookie,以查看是否指定了区域设置或时区-->
+<!--    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">-->
+<!--        <property name="defaultLocale" value="zh_CN"/>-->
+<!--        <property name="cookieName" value="clientlanguage"/>-->
+<!--        &lt;!&ndash;单位:s，如果设置为-1,并不会持久化，当浏览器关闭的时候删除&ndash;&gt;-->
+<!--        <property name="cookieMaxAge" value="100000"/>-->
+<!--    </bean>-->
+    <!--此解析器允许我们从可能与用户请求关联的Session检索Locale和TimeZone
+        与CookieLocaleResolver相比，此策略将本地选择的语言环境设置在Servlet容器的HttpSession中
+        因此，这些设置对于每个会话来说都是临时的，因此在每个会话终止时都会丢失
+        该解析器将仅根据当前的HttpServletRequest评估并修改相应的HttpSession属性-->
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
         <property name="defaultLocale" value="zh_CN"/>
+<!--        <property name="localeAttributeName" value="clientlanguage"/>-->
+<!--        <property name="timeZoneAttributeName" value="clienttimezone"/>-->
     </bean>
 
-    <!--绑定资源文件-->
+    <!--固定解析器，一旦设置，不允许修改，修改会抛出异常-->
+<!--    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.FixedLocaleResolver">-->
+<!--        <property name="defaultLocale" value=""/>-->
+<!--        <property name="defaultTimeZone" value=""/>-->
+<!--    </bean>-->
+
+    <!--绑定Resource Bundle,该类只能从类路径读取，不能指定外部资源文件-->
+<!--    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">-->
+<!--        <property name="defaultEncoding" value="UTF-8"/>-->
+<!--        <property name="basename" value="classpath:/i18n/language"/>-->
+<!--    </bean>-->
+
+    <!--绑定Resource Bundle，可以从类路径读取，也可以指定外部资源文件，一般建议使用该类-->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="classpath:/i18n/language"/>
         <property name="defaultEncoding" value="UTF-8"/>
@@ -17,7 +42,7 @@
 
     <mvc:interceptors>
         <!--自定义拦截器，拦截参数为language的HTTP请求，重新设置区域化信息-->
-        <!--        <bean class="com.ly.java.interceptor.InternationalInterceptor">-->
+        <!--        <bean class="com.ly.spring.interceptor.InternationalInterceptor">-->
         <!--            <property name="paramName" value="language"/>-->
         <!--        </bean>-->
         <!--使用自带的拦截器-->
@@ -25,6 +50,5 @@
             <property name="paramName" value="language"/>
         </bean>
     </mvc:interceptors>
-
 
 </beans>
